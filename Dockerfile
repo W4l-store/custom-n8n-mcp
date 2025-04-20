@@ -5,11 +5,12 @@ FROM n8nio/n8n:latest
 # Switch to root user to perform system-level changes and global npm installs
 USER root
 
-# Update package lists, install/update root CA certificates,
-# install the required global npm package, and clean up apt cache in a single layer
-# This helps ensure SSL/TLS connections work correctly and keeps the image size smaller.
+# Update package lists, install essential tools (including nodejs & npm),
+# install/update root CA certificates,
+# install the required global npm package, and clean up apt cache in a single layer.
+# This ensures npm is available for the root user during the build.
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ca-certificates && \
+    apt-get install -y --no-install-recommends ca-certificates nodejs npm && \
     update-ca-certificates && \
     npm install -g firecrawl-mcp && \
     apt-get clean && \
