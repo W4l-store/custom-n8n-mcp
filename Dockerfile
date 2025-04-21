@@ -6,8 +6,8 @@ FROM n8nio/n8n:latest
 USER root
 
 # Update package lists and install/update CA certificates
-# The base n8n image uses Debian/Ubuntu, so we use apt-get
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && apt-get clean && rm -rf /var/lib/apt/lists/*
+# The base n8n image likely uses Alpine, so we use apk
+RUN apk update && apk add --no-cache ca-certificates && update-ca-certificates && rm -rf /var/cache/apk/*
 
 # Install the Firecrawl mcp
 RUN npm install -g firecrawl-mcp
