@@ -2,8 +2,6 @@
 # Be aware that breaking changes might occur between versions.
 FROM n8nio/n8n:latest
 
-# Set RES_OPTIONS to handle DNS resolution issues in some environments like Railway
-ENV RES_OPTIONS=ndots:0
 
 # Switch to root user to install global dependencies and update certs
 USER root
