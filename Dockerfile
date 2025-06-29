@@ -5,6 +5,9 @@ FROM n8nio/n8n:latest
 # Switch to root user to install global dependencies and update certs
 USER root
 
+# Explicitly set a reliable DNS server to avoid EAI_AGAIN errors in some environments
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
 # Update package lists and install/update general CA certificates
 # The base n8n image likely uses Alpine, so we use apk
 RUN apk update && apk add --no-cache ca-certificates && update-ca-certificates && rm -rf /var/cache/apk/*
